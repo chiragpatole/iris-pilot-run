@@ -1,0 +1,4 @@
+country_code,substation_id,name,voltage_kv,srid,source_date,wkt
+DE,SUB-01,Umspannwerk Nord,110,4326,2026-01-10,POINT(10.2900 47.9800)
+DE,SUB-02,Umspannwerk Sued,380,4326,2026-01-10,POINT(10.4200 47.8600)
+AT,SUB-01,Umspannwerk Grenzland,110,4326,2026-01-12,POINT(10.2960 47.9760)
