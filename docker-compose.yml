@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    # this image is only built for amd64. On an Apple Silicon Mac Docker runs it
+    # under emulation, which works but starts a bit slower
+    platform: linux/amd64
+    environment:
+      POSTGRES_USER: iris
+      POSTGRES_PASSWORD: iris
+      POSTGRES_DB: iris
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U iris -d iris"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+      start_period: 10s
