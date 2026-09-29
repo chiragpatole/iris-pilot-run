@@ -1,0 +1,229 @@
+{
+  "run_id": "20260928T113420Z-58cd62",
+  "status": "success",
+  "started_at": "2026-09-28T11:34:20.561Z",
+  "finished_at": "2026-09-28T11:34:20.607Z",
+  "seconds": 0.046,
+  "stages": [
+    {
+      "name": "preflight",
+      "status": "success",
+      "critical": true,
+      "started_at": "2026-09-28T11:34:20.561Z",
+      "finished_at": "2026-09-28T11:34:20.573Z",
+      "seconds": 0.012,
+      "details": {
+        "postgres_version_num": 160015,
+        "postgis": "3.4.2",
+        "accepted_rows_waiting": 16
+      },
+      "error": null,
+      "skipped_because": null
+    },
+    {
+      "name": "promote",
+      "status": "success",
+      "critical": true,
+      "started_at": "2026-09-28T11:34:20.573Z",
+      "finished_at": "2026-09-28T11:34:20.593Z",
+      "seconds": 0.019,
+      "details": {
+        "accepted_rows": 16,
+        "inserted": 8,
+        "updated": 0,
+        "unchanged": 0,
+        "rejected": 8,
+        "not_accepted_rows_ignored": 1,
+        "rejections": [
+          {
+            "country_code": null,
+            "source_id": "P-007",
+            "reason": "missing country_code"
+          },
+          {
+            "country_code": "DE",
+            "source_id": "P-008",
+            "reason": "invalid geometry: Self-intersection[10.3025 47.9925]"
+          },
+          {
+            "country_code": "DE",
+            "source_id": "P-009",
+            "reason": "missing CRS (srid)"
+          },
+          {
+            "country_code": "DE",
+            "source_id": "P-010",
+            "reason": "missing source_date"
+          },
+          {
+            "country_code": "DE",
+            "source_id": "P-012",
+            "reason": "same (country_code, source_id) appears more than once in the batch"
+          },
+          {
+            "country_code": "DE",
+            "source_id": "P-012",
+            "reason": "same (country_code, source_id) appears more than once in the batch"
+          },
+          {
+            "country_code": "DE",
+            "source_id": "P-013",
+            "reason": "unsupported CRS 3857"
+          },
+          {
+            "country_code": "DE",
+            "source_id": "P-014",
+            "reason": "unknown land_type forest"
+          }
+        ]
+      },
+      "error": null,
+      "skipped_because": null
+    },
+    {
+      "name": "refresh_bess",
+      "status": "success",
+      "critical": false,
+      "started_at": "2026-09-28T11:34:20.593Z",
+      "finished_at": "2026-09-28T11:34:20.598Z",
+      "seconds": 0.005,
+      "details": {
+        "view": "mart.bess_candidates",
+        "rows": 5
+      },
+      "error": null,
+      "skipped_because": null
+    },
+    {
+      "name": "export_bess",
+      "status": "success",
+      "critical": false,
+      "started_at": "2026-09-28T11:34:20.598Z",
+      "finished_at": "2026-09-28T11:34:20.600Z",
+      "seconds": 0.002,
+      "details": {
+        "view": "mart.bess_candidates",
+        "dossiers": 3,
+        "files": [
+          {
+            "path": "dossiers/bess/DE_P-002.md",
+            "sha256": "ede40e9e63eac4568fc26a7dd64f711e80566c1863cf84393c1b3b9ba63fa080"
+          },
+          {
+            "path": "dossiers/bess/DE_P-001.md",
+            "sha256": "f05a5e410ee0b2daf24352e025feac2c1181db4050ab43c02448e62ff16a29f7"
+          },
+          {
+            "path": "dossiers/bess/DE_P-003.md",
+            "sha256": "e5b57d347155d63a79d4cd17c7b87d7227dd0c0ad63d9fab2dfc6a522378a119"
+          }
+        ]
+      },
+      "error": null,
+      "skipped_because": null
+    },
+    {
+      "name": "refresh_peatland",
+      "status": "success",
+      "critical": false,
+      "started_at": "2026-09-28T11:34:20.600Z",
+      "finished_at": "2026-09-28T11:34:20.605Z",
+      "seconds": 0.004,
+      "details": {
+        "view": "mart.peatland_candidates",
+        "rows": 3
+      },
+      "error": null,
+      "skipped_because": null
+    },
+    {
+      "name": "export_peatland",
+      "status": "success",
+      "critical": false,
+      "started_at": "2026-09-28T11:34:20.605Z",
+      "finished_at": "2026-09-28T11:34:20.606Z",
+      "seconds": 0.002,
+      "details": {
+        "view": "mart.peatland_candidates",
+        "dossiers": 3,
+        "files": [
+          {
+            "path": "dossiers/peatland/DE_P-004.md",
+            "sha256": "6acb06d99cd0438291e71afce7c82d660d1cc527926559920287b85042b480ae"
+          },
+          {
+            "path": "dossiers/peatland/AT_P-020.md",
+            "sha256": "59235ddb217bc7612284e2c0790205d6763abd4db023c0a6b02f37eb660ae80f"
+          },
+          {
+            "path": "dossiers/peatland/DE_P-005.md",
+            "sha256": "63b661243e0a5dda4dcee2cacce5a838c840bccf18e308f7b9ff9b6f6d332d34"
+          }
+        ]
+      },
+      "error": null,
+      "skipped_because": null
+    }
+  ],
+  "outputs": [
+    {
+      "path": "dossiers/bess/DE_P-002.md",
+      "sha256": "ede40e9e63eac4568fc26a7dd64f711e80566c1863cf84393c1b3b9ba63fa080"
+    },
+    {
+      "path": "dossiers/bess/DE_P-001.md",
+      "sha256": "f05a5e410ee0b2daf24352e025feac2c1181db4050ab43c02448e62ff16a29f7"
+    },
+    {
+      "path": "dossiers/bess/DE_P-003.md",
+      "sha256": "e5b57d347155d63a79d4cd17c7b87d7227dd0c0ad63d9fab2dfc6a522378a119"
+    },
+    {
+      "path": "dossiers/peatland/DE_P-004.md",
+      "sha256": "6acb06d99cd0438291e71afce7c82d660d1cc527926559920287b85042b480ae"
+    },
+    {
+      "path": "dossiers/peatland/AT_P-020.md",
+      "sha256": "59235ddb217bc7612284e2c0790205d6763abd4db023c0a6b02f37eb660ae80f"
+    },
+    {
+      "path": "dossiers/peatland/DE_P-005.md",
+      "sha256": "63b661243e0a5dda4dcee2cacce5a838c840bccf18e308f7b9ff9b6f6d332d34"
+    }
+  ],
+  "freshness": {
+    "available": true,
+    "items": [
+      {
+        "item": "core_data",
+        "updated_at": "2026-09-28T11:34:20.591535+00:00",
+        "stale": false,
+        "reason": null
+      },
+      {
+        "item": "view:bess",
+        "updated_at": "2026-09-28T11:34:20.597645+00:00",
+        "stale": false,
+        "reason": null
+      },
+      {
+        "item": "view:peatland",
+        "updated_at": "2026-09-28T11:34:20.604278+00:00",
+        "stale": false,
+        "reason": null
+      },
+      {
+        "item": "export:bess",
+        "updated_at": "2026-09-28T11:34:20.600532+00:00",
+        "stale": false,
+        "reason": null
+      },
+      {
+        "item": "export:peatland",
+        "updated_at": "2026-09-28T11:34:20.606464+00:00",
+        "stale": false,
+        "reason": null
+      }
+    ]
+  }
+}
