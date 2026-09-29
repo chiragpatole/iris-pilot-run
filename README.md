@@ -128,3 +128,126 @@ fixtures/        parcels.csv, substations.csv
 tests/
 examples/        two real manifests
 ```
+
+
+
+
+## Terminal
+(.venv) (base) chirag@Mac iris-pilot-run % make setup
+python -m iris_run migrate
+applied: 001_schema.sql, 002_views.sql
+python -m iris_run load-fixtures
+loaded 17 parcel rows into staging, 3 substations (3 new or changed)
+(.venv) (base) chirag@Mac iris-pilot-run % make run
+python -m iris_run run
+run 20260929T133151Z-f91550  status: SUCCESS  (0.303s)
+
+  preflight          success  postgres ok, postgis 3.4.3, 16 accepted rows waiting
+  promote            success  8 new, 0 changed, 0 unchanged, 8 rejected
+  refresh_bess       success  5 rows in mart.bess_candidates
+  export_bess        success  3 dossiers
+  refresh_peatland   success  3 rows in mart.peatland_candidates
+  export_peatland    success  3 dossiers
+
+freshness: everything is current
+
+manifest: out/runs/20260929T133151Z-f91550.json
+(.venv) (base) chirag@Mac iris-pilot-run % make run
+python -m iris_run run
+run 20260929T133159Z-2c76ee  status: SUCCESS  (0.263s)
+
+  preflight          success  postgres ok, postgis 3.4.3, 16 accepted rows waiting
+  promote            success  0 new, 0 changed, 8 unchanged, 8 rejected
+  refresh_bess       success  5 rows in mart.bess_candidates
+  export_bess        success  3 dossiers
+  refresh_peatland   success  3 rows in mart.peatland_candidates
+  export_peatland    success  3 dossiers
+
+freshness: everything is current
+
+manifest: out/runs/20260929T133159Z-2c76ee.json
+(.venv) (base) chirag@Mac iris-pilot-run % make status
+python -m iris_run status
+core_data        current  last built: 2026-09-29T13:31:52.230047+00:00
+view:bess        current  last built: 2026-09-29T13:31:59.809829+00:00
+view:peatland    current  last built: 2026-09-29T13:31:59.821812+00:00
+export:bess      current  last built: 2026-09-29T13:31:59.818170+00:00
+export:peatland  current  last built: 2026-09-29T13:31:59.826313+00:00
+
+last run: 20260929T133159Z-2c76ee  status: success  finished: 2026-09-29T13:31:59.829Z
+(.venv) (base) chirag@Mac iris-pilot-run % make test
+python -m pytest -q
+...................                                                      [100%]
+19 passed in 5.61s
+(.venv) (base) chirag@Mac iris-pilot-run % cat out/manifest.latest.json | head -50
+{
+  "run_id": "20260929T133159Z-2c76ee",
+  "status": "success",
+  "started_at": "2026-09-29T13:31:59.566Z",
+  "finished_at": "2026-09-29T13:31:59.829Z",
+  "seconds": 0.263,
+  "stages": [
+    {
+      "name": "preflight",
+      "status": "success",
+      "critical": true,
+      "started_at": "2026-09-29T13:31:59.566Z",
+      "finished_at": "2026-09-29T13:31:59.669Z",
+      "seconds": 0.103,
+      "details": {
+        "postgres_version_num": 160004,
+        "postgis": "3.4.3",
+        "accepted_rows_waiting": 16
+      },
+      "error": null,
+      "skipped_because": null
+    },
+    {
+      "name": "promote",
+      "status": "success",
+      "critical": true,
+      "started_at": "2026-09-29T13:31:59.669Z",
+      "finished_at": "2026-09-29T13:31:59.795Z",
+      "seconds": 0.126,
+      "details": {
+        "accepted_rows": 16,
+        "inserted": 0,
+        "updated": 0,
+        "unchanged": 8,
+        "rejected": 8,
+        "not_accepted_rows_ignored": 1,
+        "rejections": [
+          {
+            "country_code": null,
+            "source_id": "P-007",
+            "reason": "missing country_code"
+          },
+          {
+            "country_code": "DE",
+            "source_id": "P-008",
+            "reason": "invalid geometry: Self-intersection[10.3025 47.9925]"
+          },
+          {
+            "country_code": "DE",
+            "source_id": "P-009",
+(.venv) (base) chirag@Mac iris-pilot-run % cat out/dossiers/bess/DE_P-002.md
+
+# BESS screening: DE / P-002
+
+Gewerbebrache, industrial
+
+| | |
+|---|---|
+| Country / site id | DE / P-002 |
+| Area | 33,204 m2 (3.32 ha) |
+| Nearest substation | SUB-01, Umspannwerk Nord (110 kV) |
+| Distance to substation | 186 m |
+| Source date | 2026-03-01 |
+
+Area and distance are measured on the WGS84 ellipsoid, in metres. Only substations
+with the same country code as the parcel are considered.
+
+## Limits
+
+Preliminary prospecting material. Figures, eco-point estimates and site suitability are indicative and based on available source data and commercial screening assumptions. The 8 eco-points/m2 factor is the current commercial baseline, not certified compensation. Ownership, planning, grid capacity, environmental eligibility and transferability remain subject to project-specific verification. No permit, reservation or construction readiness is represented.
+(.venv) (base) chirag@Mac iris-pilot-run % open out/dossiers
